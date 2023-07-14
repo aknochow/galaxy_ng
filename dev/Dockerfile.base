@@ -82,8 +82,11 @@ COPY --chown=${USER_NAME}:${USER_GROUP} . /app
 # When LOCK_REQUIREMENTS is disabled avoid running collectstatic here
 # on that case developer should run collectstatic manually
 RUN set -ex; \
-    pip install --no-cache-dir --editable /app \
-    && pip install -r /app/requirements/requirements.dev.txt
+    pip install -U pip==21 \
+    && pip install -r /app/requirements/requirements.dev.txt \
+    && pip install -r /app/requirements/requirements.common.txt \
+    && pip install --no-cache-dir --editable /app
+
 
 USER root:root
 RUN set -ex; \
