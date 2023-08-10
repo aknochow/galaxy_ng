@@ -138,6 +138,10 @@ gh-action/insights:
 gh-action/standalone:
 	python3 dev/oci_env_integration/actions/standalone.py
 
+.PHONY: gh-action/community
+gh-action/community:
+	python3 dev/oci_env_integration/actions/community.py
+
 .PHONY: gh-action/certified-sync
 gh-action/certified-sync:
 	python3 dev/oci_env_integration/actions/certified-sync.py
@@ -273,3 +277,27 @@ docs/build:
 
 docs/serve:
 	@mkdocs serve
+
+#########################################################
+# Simple stack spinup ... please don't overengineer this
+#########################################################
+
+.PHONY: oci/standalone
+oci/standalone:
+	dev/oci_start standalone
+
+.PHONY: oci/insights
+oci/insights:
+	dev/oci_start insights
+
+.PHONY: oci/keycloak
+oci/keycloak:
+	dev/oci_start keycloak
+
+.PHONY: oci/ldap
+oci/ldap:
+	dev/oci_start ldap
+
+.PHONY: oci/community
+oci/community:
+	dev/oci_start community

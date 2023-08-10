@@ -1,6 +1,5 @@
 import logging
 import os
-from functools import lru_cache
 
 from django.conf import settings
 from django.contrib.auth.models import Permission
@@ -122,7 +121,6 @@ class AccessPolicyBase(AccessPolicyFromDB):
     NAME = None
 
     @classmethod
-    @lru_cache
     def get_access_policy(cls, view):
         statements = GALAXY_STATEMENTS
 
@@ -690,14 +688,14 @@ class ContainerRemoteAccessPolicy(AccessPolicyBase):
         if request.user.has_perm(permission):
             return True
         obj = view.get_object()
-        if type(obj) == container_models.ContainerDistribution:
+        if type(obj) is container_models.ContainerDistribution:
             namespace = obj.namespace
             return request.user.has_perm(permission, namespace)
-        elif type(obj) == container_models.ContainerPushRepository:
+        elif type(obj) is container_models.ContainerPushRepository:
             for dist in obj.distributions.all():
                 if request.user.has_perm(permission, dist.cast().namespace):
                     return True
-        elif type(obj) == container_models.ContainerPushRepositoryVersion:
+        elif type(obj) is container_models.ContainerPushRepositoryVersion:
             for dist in obj.repository.distributions.all():
                 if request.user.has_perm(permission, dist.cast().namespace):
                     return True

@@ -89,16 +89,14 @@ CREDENTIALS = {
 
 PROFILES = {
     "anonymous_user": {
-        "username": {
-            "ldap": None,
-            "galaxy": None,
-        }
+        "username": None,
     },
     "basic_user": {
         "namespaces": ["autohubtest2", "autohubtest3"],
         "username": {
             "ldap": "fry",
             "galaxy": "iqe_normal_user",
+            "community": "iqe_normal_user",
         }
     },
     "partner_engineer": {
@@ -107,6 +105,7 @@ PROFILES = {
         "username": {
             "ldap": "professor",
             "galaxy": "jdoe",
+            "community": "jdoe",
         }
     },
     "org_admin": {  # user is org admin in keycloak
@@ -121,7 +120,7 @@ PROFILES = {
         "username": {
             "ldap": "professor",
             "galaxy": "notifications_admin",
-            "github": "notifications_admin",
+            "community": "notifications_admin",
         }
     },
     "iqe_admin": {
@@ -129,6 +128,7 @@ PROFILES = {
         "username": {
             "ldap": "hermes",
             "galaxy": "iqe_admin",
+            "community": "iqe_admin",
         }
     },
     "ee_admin": {
@@ -141,22 +141,22 @@ PROFILES = {
 
     "github_user_1": {
         "username": {
-            "github": "gh01",
+            "community": "gh01",
         }
     },
     "github_user_2": {
         "username": {
-            "github": "gh02",
+            "community": "gh02",
         }
     },
     "geerlingguy": {
         "username": {
-            "github": "geerlingguy",
+            "community": "geerlingguy",
         }
     },
     "jctannerTEST": {
         "username": {
-            "github": "jctannerTEST",
+            "community": "jctannerTEST",
         }
     },
 }
@@ -250,4 +250,37 @@ DEPLOYED_PAH_PROFILES = {
         "password": "redhat",
         "token": "abcdefghijklmnopqrstuvwxyz1234567895",
     },
+}
+
+BETA_GALAXY_STAGE_PROFILES = {
+    "regular_user": {  # it's a regular django user
+        "username": {"vault_path": "secrets/qe/stage/users/beta_galaxy_reg_user",
+                     "vault_key": "username"},
+        "password": {"vault_path": "secrets/qe/stage/users/beta_galaxy_reg_user",
+                     "vault_key": "password"},
+        "token": {"vault_path": "secrets/qe/stage/users/beta_galaxy_reg_user",
+                  "vault_key": "token"},
+    },
+    "github_user": {
+        "username": {"vault_path": "secrets/qe/stage/users/github_user",
+                     "vault_key": "username"},
+        "password": {"vault_path": "secrets/qe/stage/users/github_user",
+                     "vault_key": "password"},
+        "token": None
+    },
+    "github_user_alt": {
+        "username": {"vault_path": "secrets/qe/stage/users/github_user_alt",
+                     "vault_key": "username"},
+        "password": {"vault_path": "secrets/qe/stage/users/github_user_alt",
+                     "vault_key": "password"},
+        "token": None
+    },
+    "admin": {  # it's an admin django user
+        "username": {"vault_path": "secrets/qe/stage/users/beta_galaxy_admin",
+                     "vault_key": "username"},
+        "password": {"vault_path": "secrets/qe/stage/users/beta_galaxy_admin",
+                     "vault_key": "password"},
+        "token": {"vault_path": "secrets/qe/stage/users/beta_galaxy_admin",
+                  "vault_key": "token"},
+    }
 }
